@@ -2,7 +2,7 @@
 from django.db import models
 
 # Utils
-from utils.models import CRideModel
+from cride.utils.models import CRideModel
 
 # Managers
 from cride.circles.managers import InvitationManager
@@ -18,7 +18,7 @@ class Invitation(CRideModel):
         value greater than 0.
         """
 
-        code = models.CharField(max_length=50, utique=True)
+        code = models.CharField(max_length=50, unique=True)
 
         issued_by = models.ForeignKey(
             'users.User',
