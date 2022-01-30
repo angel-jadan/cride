@@ -12,7 +12,6 @@ from cride.circles.serializers import CircleModelSerializer
 
 # Filters
 from rest_framework.filters import SearchFilter, OrderingFilter
-from django_filters import rest_framework as filters
 
 # Models
 from cride.circles.models import Circle, Membership
