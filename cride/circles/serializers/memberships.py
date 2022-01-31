@@ -90,7 +90,6 @@ class AddMemberSerializer(serializers.Serializer):
         """Create new circle member."""
         circle = self.context['circle']
         invitation = self.context['invitation']
-        import pdb; pdb.set_trace()
         user = data['user']
         now = timezone.now()
 
