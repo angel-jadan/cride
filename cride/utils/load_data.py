@@ -16,9 +16,7 @@ def import_data_circles():
             )
             circle.save()
         
-        f.close()
-        print( "proceso terminado")
-
-
+    f.close()
+    print( "Carga inicial de Circulos completado.") 
 
 import_data_circles()

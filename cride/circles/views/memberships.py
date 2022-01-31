@@ -2,6 +2,7 @@
 
 # Django REST Framework
 from operator import le
+import pdb
 import re
 from django.template import context
 from rest_framework import mixins, viewsets, status
@@ -75,7 +76,7 @@ class MembershipViewSet(mixins.ListModelMixin,
         invitations that haven't being used yet.
         """
 
-        member= self.get_object()
+        member = self.get_object()
         invited_members = Membership.objects.filter(
             circle=self.circle,
             invited_by=request.user,
@@ -84,11 +85,11 @@ class MembershipViewSet(mixins.ListModelMixin,
 
         unused_invitations = Invitation.objects.filter(
             circle=self.circle,
-            invited_by=request.user,
-            used =False
+            issued_by=request.user,
+            used=False
         ).values_list('code')
 
-        diff=member.remaining_invitations-len(unused_invitations)
+        diff = member.remaining_invitations - len(unused_invitations)
         invitations = [x[0] for x in unused_invitations]
 
         for i in range(0, diff):
@@ -101,8 +102,8 @@ class MembershipViewSet(mixins.ListModelMixin,
 
         data = {
             'used_invitations': MembershipModelSerializer(invited_members, many=True).data,
-            'invitations': invitations
-
+            'invitations': invitations,
+            'pending_invitations': len(unused_invitations)
         }
 
         return Response(data) 

@@ -63,6 +63,7 @@ class AddMemberSerializer(serializers.Serializer):
         q = Membership.objects.filter(circle=circle, user=user)
         if q.exists():
             raise serializers.ValidationError('User is already member of this circle')
+        return user
 
     def validate_invitation_code(self, data):
         """Verify code exists and  that it is related to the circle."""
@@ -87,13 +88,13 @@ class AddMemberSerializer(serializers.Serializer):
 
     def create(self, data):
         """Create new circle member."""
-        circle= self.context['circle']
+        circle = self.context['circle']
         invitation = self.context['invitation']
+        import pdb; pdb.set_trace()
         user = data['user']
-
         now = timezone.now()
 
-        # Meber creation
+        # Member creation
         member = Membership.objects.create(
             user=user,
             profile=user.profile,
@@ -109,6 +110,8 @@ class AddMemberSerializer(serializers.Serializer):
 
         # Update issuer data
         issuer = Membership.objects.get(user=invitation.issued_by, circle=circle)
-        issuer.used_invitation += 1
-        issuer.remaining_invitation -= 1
+        issuer.used_invitations += 1
+        issuer.remaining_invitations -= 1
         issuer.save()
+
+        return member
