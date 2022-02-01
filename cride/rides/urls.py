@@ -11,7 +11,7 @@ from .views import rides as ride_views
 
 router = DefaultRouter()
 router.register(
-    r'circle/(?P<slug_name>[-a-zA-Z0-0_]+)/rides',
+    r'circles/(?P<slug_name>[-a-zA-Z0-0_]+)/rides',
     ride_views.RideViewSet,
     basename='ride'
 )

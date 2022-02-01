@@ -34,9 +34,9 @@ class Ride(CRideModel):
         """Return ride details."""
 
         return '{_from} to {to} | {day} {i_time} - {f_time}'.format(
-            _from=self.departure_data,
+            _from=self.departure_date,
             to=self.arrival_location,
-            day=self.departure_date('%a %d, %b'),
-            i_timme=self.departure_date('%I:%M %p'),
-            f_time=self.arrival_date('%I:%M %p')
+            day=self.departure_date.strftime('%a %d, %b'),
+            i_time=self.departure_date.strftime('%I:%M %p'),
+            f_time=self.arrival_date.strftime('%I:%M %p')
         )

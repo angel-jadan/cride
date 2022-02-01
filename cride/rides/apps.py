@@ -1,5 +1,6 @@
 from django.apps import AppConfig
 
 
-class RidesConfig(AppConfig):
-    name = 'rides'
+class RidesAppConfig(AppConfig):
+    name = 'cride.rides'
+    verbose_name = 'Rides'
