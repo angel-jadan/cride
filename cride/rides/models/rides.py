@@ -1,10 +1,13 @@
 """Rides models."""
 
 # Django
+from pyexpat import model
+from statistics import mode
 from django.db import models
 
 # Utilities
 from cride.utils.models import CRideModel
+
 
 class Ride(CRideModel):
     """Ride model."""

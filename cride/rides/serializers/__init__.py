@@ -1,4 +1,2 @@
-from cride.circles import serializers
-
-
 from .rides import * 
+from .ratings import *
