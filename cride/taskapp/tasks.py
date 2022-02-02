@@ -7,10 +7,11 @@ from django.template.loader import render_to_string
 from django.utils import timezone
 
 # Celery
-from celery.task import task
+from celery.task import task, periodic_task
 
 # Models
 from cride.users.models import User
+from cride.rides.models import Ride
 
 # Utilities
 import jwt
@@ -43,3 +44,18 @@ def send_confirmation_email(user_pk):
     msg = EmailMultiAlternatives(subject, content, from_email, [user.email])
     msg.attach_alternative(content, "text/html")
     msg.send()
+
+
+@periodic_task(name='diable_finish_rides', run_every=timedelta(seconds=5))
+def diable_finish_rides():
+    """Disable finished rides."""
+    now = timezone.now()
+    offset = now + timedelta(seconds=5)
+
+    # Update rides that have already finished
+    ride = Ride.objects.filter(
+        arrival_date__gte=now,
+        arrival_date__lte=offset,
+        is_active=True
+    )
+    ride.update(is_active=False)

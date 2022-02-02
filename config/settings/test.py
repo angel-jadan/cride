@@ -7,7 +7,7 @@ from .base import *  # NOQA
 from .base import env
 
 # Base
-DEBUG = False
+DEBUG = True
 SECRET_KEY = env("DJANGO_SECRET_KEY", default="7lEaACt4wsCj8JbXYgQLf4BmdG5QbuHTMYUGir2Gc1GHqqb2Pv8w9iXwwlIIviI2")
 TEST_RUNNER = "django.test.runner.DiscoverRunner"
 
@@ -15,7 +15,7 @@ TEST_RUNNER = "django.test.runner.DiscoverRunner"
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
-        "LOCATION": ""
+        "LOCATION": "."
     }
 }
 
